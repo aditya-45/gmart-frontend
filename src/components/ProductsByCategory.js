@@ -1,12 +1,17 @@
-import CategoryService from "../services/category.service";
+import RetailerService from "../services/retailer.service";
 import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useContext } from 'react';
+import { UserContext,CartContext } from './UserContext';
 import Header from './Header';
 import Footer from './Footer';
-import '../css/style.css';
-import '../css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
+import 'jquery/dist/jquery.min.js';
 
 const ProductsByCategory = () => {
+
+  const { user, setUser } = useContext(UserContext);
+  const {cart, setCart} = useContext(CartContext);
   const { categoryName } = useParams();
   const navigate = useNavigate();
   const [products, setProduct] = useState([]);
@@ -15,8 +20,8 @@ const ProductsByCategory = () => {
 
 
   useEffect(() => {
-    console.log("in category use effect");
-    CategoryService.getCategories(categoryName).then((response) => {
+    //console.log("in category use effect");
+    RetailerService.getCategories(categoryName).then((response) => {
       setProduct(response.data);
       setSortedProducts(response.data);
     });
@@ -24,12 +29,89 @@ const ProductsByCategory = () => {
 
 
 
-  const handleClick = () => {
-    navigate("/login/retailer", { state: { from: "homeBuyNow" } });
+  const handleClick = (event) => {
+    //console.log(event.target.value);
+    if(user === null){
+      navigate("/login/retailer", { state: { from: "homeBuyNow", prodId: event.target.value } });
+    }else{
+      navigate("/retailer/cart");
+    }
+    
   };
 
+  const handleCart = (product) => {
+    console.log(product);
+    const newCart = [...cart, {product:product, quantity:1}];
+    sessionStorage.setItem('cart', JSON.stringify(newCart));
+    setCart(newCart);
+
+  };
+
+  const addedInCart = (product) => {
+    //console.log(product);
+    let flag = false;
+    cart.forEach(element => {
+      // console.log(element.product.id);
+      // console.log(product.id);
+      if(element.product.id === product.id ) {
+        //console.log("in if condition");
+        flag = true;
+      }
+    });
+    return flag;
+  };
+
+  // const quantityGreaterThanZero = (product) => {
+  //   //console.log(product);
+  //   let flag = false;
+  //   cart.forEach(element => {
+  //     // console.log(element.product.id);
+  //     // console.log(product.id);
+  //     if(element.quantity > 0 ) {
+  //       //console.log("in if condition");
+  //       flag = true;
+  //     }
+  //   });
+  //   return flag;
+  // };
+
+  const incrementQuantity = (product) => {
+    const newCart = [...cart];
+    const index = newCart.findIndex((item) => item.product.id === product.id);
+    newCart[index].quantity += 1;
+    sessionStorage.setItem('cart', JSON.stringify(newCart));
+    setCart(newCart);
+  };
+
+  const decrementQuantity = (product) => {
+    const newCart = [...cart];
+    const index = newCart.findIndex((item) => item.product.id === product.id);
+    if(newCart[index].quantity > 0){
+      newCart[index].quantity -= 1;
+    }
+    if(newCart[index].quantity === 0){
+      newCart.splice(index, 1);
+    }
+    
+    sessionStorage.setItem('cart', JSON.stringify(newCart));
+    setCart(newCart);
+  };
+
+
+  const getProductQuantityFromCart = (prodId) => {
+    let quantity = 0;
+    cart.forEach(element => {
+      // console.log(element.product.id);
+      // console.log(product.id);
+      if(element.product.id === prodId) {
+        //console.log("in if condition");
+        quantity = element.quantity;
+      }
+    });
+    return quantity;
+  };
   const calculatePrice = (price, discount) => {
-    console.log(price)
+    //console.log(price)
     return Number.parseFloat(price) - (Number.parseFloat(price) * (Number.parseFloat(discount) / 100));
   }
 
@@ -86,46 +168,10 @@ const ProductsByCategory = () => {
     setSortedProducts(sorted);
   };
 
-  const renderProducts = sortedProducts.map(product =>
-    <div key={product.id} className="card mb-3">
-      <div className="row g-0">
-        <div className="col-md-4">
-          <img src="..\..\images\grocery.jpg" className="img-fluid rounded-start" alt="Product Image" />
-        </div>
-        <div className="col-md-8">
-          <div className="card-body">
-            <h5 className="card-title">{product.productName}</h5>
-            <div className="row">
-              <div className="col-md-5">
-                <p className="card-text"><span className="badge text-bg-secondary">Price: <span className="text-warning">{calculatePrice(product.mrp, product.discount)}</span> <span className="text-info" style={{ textDecoration: 'line-through' }}>{product.mrp}</span></span> </p>
-                <p className="card-text"><span className="badge text-bg-secondary">Discount: <span className="text-warning">{product.discount}</span></span> </p>
-                <p className="card-text"><span className="badge text-bg-secondary">Company: <span className="text-warning">{product.company.companyName}</span></span> </p>
 
-              </div>
-              <div className="col-md-6">
-                  <div className="card-text">
-                      {product.description}
-                      <br/>
-                      had fihafaofo aifoasfoaisf
-                      asjhasfasfoasfoasfapofasf
-                      ajhfshfasfoasfpaifpaifaf
-                      ashfjahsflashfaasjfoasfoaf
-                      asjflksjaljflkasjfkajlkfkjaf
-                      ahfasfoafalfjiajjojihg
-                  </div>
-              </div>
-            </div>
-            <br/>
-            <div className="row">
-              <button onClick={handleClick} className="btn btn-outline-dark col-md-3  mx-auto">Buy Now</button>
-              <button className="btn btn-outline-info col-md-3  mx-auto">Product Details</button>
-            </div>
+ 
 
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+
   return (
     <div>
       <Header />
@@ -156,10 +202,111 @@ const ProductsByCategory = () => {
         </div>
       </div>
       <div className="container">
-        {renderProducts}
+        {sortedProducts.map(product =>
+          <div key={product.id} className="card mb-3">
+            <div className="row g-0">
+              <div className="col-md-4">
+                <img src="..\..\images\grocery.jpg" className="img-fluid rounded-start" alt="Product Image" />
+              </div>
+              <div className="col-md-8">
+                <div className="card-body">
+                  <h5 className="card-title">{product.productName}</h5>
+                  <div className="row">
+                    <div className="col-md-5">
+                      <p className="card-text"><span className="badge text-bg-secondary">Price: <span className="text-warning">{calculatePrice(product.mrp, product.discount)}</span> <span className="text-info" style={{ textDecoration: 'line-through' }}>{product.mrp}</span></span> </p>
+                      <p className="card-text"><span className="badge text-bg-secondary">Discount: <span className="text-warning">{product.discount}</span></span> </p>
+                      <p className="card-text"><span className="badge text-bg-secondary">Company: <span className="text-warning">{product.company.companyName}</span></span> </p>
+
+                    </div>
+                    <div className="col-md-6">
+                      <div className="card-text">
+                        {product.description}
+                        <br />
+                        had fihafaofo aifoasfoaisf
+                        asjhasfasfoasfoasfapofasf
+                        ajhfshfasfoasfpaifpaifaf
+                        ashfjahsflashfaasjfoasfoaf
+                        asjflksjaljflkasjfkajlkfkjaf
+                        ahfasfoafalfjiajjojihg
+                      </div>
+                    </div>
+                  </div>
+                  <br />
+                  <div className="row">
+                    <button onClick={handleClick} className="btn btn-outline-dark col-3  mx-auto" value={product.id}>Buy Now</button>
+                    {user !== null && !addedInCart(product) ? <button onClick={()=>handleCart(product)} className="btn btn-outline-dark col-3  mx-auto" value={product.id}>Add to Cart</button>:''}
+                    {user !== null && addedInCart(product)  ? <div className="container col-3 mx-auto">
+                                                    <div className="row">
+                                                        <button onClick={() => decrementQuantity(product)} className="btn btn-danger col-2 h-25 border rounded">-</button>
+
+                                                        <div className="col-3 text-center">
+                                                            <span>{getProductQuantityFromCart(product.id)}</span>
+                                                        </div>
+
+                                                        <button onClick={() => incrementQuantity(product)} className="btn btn-success h-25 col-2">+</button>
+
+                                                    </div>
+                                                </div> :''}
+                    
+                    <button type="button" className="btn btn-outline-info col-md-3 mx-auto" data-bs-toggle="modal" data-bs-target={`#exampleModal${product.id}`}>Product Details</button>
+                   
+                    <div  className="modal fade" id={`exampleModal${product.id}`} tabIndex={-1} role="dialog" aria-labelledby={`exampleModalLabel${product.id}`} aria-hidden="true">
+                      <div className="modal-dialog modal-dialog-scrollable" role="document">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 className="modal-title fs-5" id={`exampleModalLabel${product.id}`}>{product.productName}</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                              {/* <span aria-hidden="true">&times;</span> */}
+                            </button>
+                          </div>
+                          <div className="modal-body">
+                            <p>Price: {product.mrp}</p>
+                            <p>Discount: {product.discount}</p>
+                            <p>Final Price: {calculatePrice(product.mrp,product.discount)}</p>
+                            <p>Description: {product.description}</p>
+                            <p>This is product description
+                              kjfhjd ddflksdf ksdj fkdjfksdf
+                              djshfsdf jsdhfdfjhd jfhsdjfhjdf
+                              jhjfhjdf sjdfdh fjhsf jhdjfhdjf
+                            </p>
+                          </div>
+                          <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary">Save changes</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
+      {/* <div className="modal fade" id="myModal" style={{ display: "none" }}>
+        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="modelLabel"></h1>
+              <button type="button" className="btn-close" data-dismiss="modal" aria-label="Close" onClick={closeModal}>&times;</button>
+            </div>
+
+            <div className="modal-body" id="modelBody">
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-primary " data-dismiss="modal" onClick={closeModal}>Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+       */}
+
       <Footer />
+
+
     </div>
   );
 }

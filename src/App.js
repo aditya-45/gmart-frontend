@@ -17,17 +17,22 @@ import RetailerHomePage from './components/RetailerHomePage';
 import CompanyHomePage from './components/CompanyHomePage';
 import ProductsByCategory from './components/ProductsByCategory';
 import Cart from './components/Cart';
+import { UserProvider,CartProvider } from './components/UserContext';
+import RetailerOrderedProductList from './components/RetailerOrderedProductList';
+
+
 function App() {
-   
-    
 
   return (
+    
     <BrowserRouter>
           
           <div>
+          <UserProvider>
+            <CartProvider>
               <Routes>
-                  <Route path="/" element={<HomePage/>}/>
-                  <Route path="/home" element={<HomePage/>}/>
+                  <Route exact path="/" element={<HomePage/>}/>
+                  <Route exact path="/home" element={<HomePage/>}/>
                   <Route path="/signup" element={<SelectRole/>}/>
                   <Route path="/signup/retailer" element={<RetailerSignUp/>}/>
                   <Route path="/signup/company" element={<CompanySignUp/>}/>
@@ -38,11 +43,14 @@ function App() {
                   <Route path="/feedback" element={<Feedback/>}/>
                   <Route path="/about" element={<AboutUs/>}/>
 
+                  <Route path="/retailer/productList" element={<RetailerOrderedProductList/>}/>
                   <Route path="/retailer/home" element={<RetailerHomePage/>}/>
                   <Route path="/company/home" element={<CompanyHomePage/>}/>
                   <Route path="/category/:categoryName" element={<ProductsByCategory/>}/>
+                  <Route path="/retailer/category/:categoryName" element={<ProductsByCategory/>}/>
 
                   <Route path='/retailer/cart' element={<Cart/>}/>
+                 
                   {/* <Route path="/login" element={<LoginPage/>}/>
                   <Route path="/register" element={<RegisterPage/>}/> */}
 
@@ -63,8 +71,11 @@ function App() {
                   <Route path="/401" element={<UnauthorizedPage/>}/>
                   <Route path="*" element={<NotFoundPage/>}/> */}
               </Routes>
+              </CartProvider>
+              </UserProvider>
           </div>
       </BrowserRouter>
+      
     // <div className="App">
     //   <Header/>
     //   <HomeCarousel/>

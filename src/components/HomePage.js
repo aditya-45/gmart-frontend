@@ -3,8 +3,35 @@ import Header from "./Header";
 import HomeCardComponent from "./HomeCardComponent";
 import HomeCarousel from "./HomeCarousel";
 import HomeCategory from "./HomeCategory";
+import { useEffect, useState,useContext  } from 'react';
+import { UserContext } from './UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
+
+    const { user } = useContext(UserContext);
+
+    console.log(user);
+    const navigate = useNavigate();
+     //mounted
+     useEffect(() => {
+        //console.log(user);
+        if (user) {
+            if(user.username !== '' && user.role === 'company'){
+                navigate('/company/home');
+            }else if(user.username !== '' && user.role === 'retailer'){
+                navigate('/retailer/home');
+            }
+            else{
+                navigate('/');
+            }
+            //navigate
+            
+        }else{
+            navigate('/');
+        }
+    }, []);
+
     return (
         <div>
             <Header/>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useContext  } from 'react';
 import User from '../models/company';
 //import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,38 +12,40 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { setCurrentCompany } from '../store/actions/user';
 import { useDispatch, useSelector } from 'react-redux';
+import { UserContext } from './UserContext';
 
 const CompanyLogin = () => {
 
-    const [user, setUser] = useState(new User('', ''));
-    const [username, setUsername] = useState(user.username);
-    const [password, setPassword] = useState(user.password);
+    const { user, setUser } = useContext(UserContext);
+
+    const [company, setCompany] = useState(new User('', ''));
+    const [username, setUsername] = useState(company.username);
+    const [password, setPassword] = useState(company.password);
     const [loading, setLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const currentCompany = useSelector(state => state.retailer);
+    //const currentCompany = useSelector(state => state.retailer);
 
     const navigate = useNavigate();
 
-    const dispatch = useDispatch();
-
-    //mounted
+    //const dispatch = useDispatch();
     useEffect(() => {
-        if (localStorage.getItem(currentCompany.username) !== '') {
-            //navigate
-            navigate('/company/home');
+        if (user) {
+            console.log("use effect" + user.username);
+          navigate('/company/home');
         }
-    }, []);
+      }, [user, navigate]);
+    
 
     function handleUsernameChange(event) {
         setUsername(event.target.value);
-        setUser(new User(event.target.value, password));
+        setCompany(new User(event.target.value, password));
     }
 
     function handlePasswordChange(event) {
         setPassword(event.target.value);
-        setUser(new User(username, event.target.value));
+        setCompany(new User(username, event.target.value));
     }
   
 
@@ -51,20 +53,24 @@ const CompanyLogin = () => {
       e.preventDefault();
 
       setSubmitted(true);
-   //     console.log("in handle login "+user.email+" "+user.password);
-      if (!user.username || !user.password) {
+   //     console.log("in handle login "+company.email+" "+company.password);
+      if (!company.username || !company.password) {
           return;
       }
 
       setLoading(true);
-      console.log("username "+user.username+" pwd "+user.password);
-      RetailerService.login(user).then(response => {
+      console.log("username "+company.username+" pwd "+company.password);
+      RetailerService.login(company).then(response => {
           console.log("login success "+response.data)
-          //set user in session.
-          dispatch(setCurrentCompany(response.data));
+          //set company in session.
+          console.log(company.username);
+          sessionStorage.setItem('user', JSON.stringify({ username: company.username, role: 'company' }));
+          setUser({ username: company.username, role: 'company' });
+          
+          //dispatch(setCurrentCompany(response.data));
         //  console.log("after dispatch");
         
-          navigate('/home');
+          //navigate('');
          
       }).catch(error => {
          console.log(error);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useContext } from 'react';
 import User from '../models/retailer';
 //import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,14 +13,16 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { setCurrentRetailer } from '../store/actions/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from "react-router-dom";
-
+import { UserContext } from './UserContext';
 
 
 const RetailerLogin = () => {
 
-    const [user, setUser] = useState(new User('', ''));
-    const [username, setUsername] = useState(user.username);
-    const [password, setPassword] = useState(user.password);
+    const { user, setUser } = useContext(UserContext);
+
+    const [retailer, setRetailer] = useState(new User('', ''));
+    const [username, setUsername] = useState(retailer.username);
+    const [password, setPassword] = useState(retailer.password);
     const [loading, setLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -33,6 +35,13 @@ const RetailerLogin = () => {
 
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        if (user) {
+            console.log("use effect" + user.username);
+          navigate('/retailer/home');
+        }
+      }, [user, navigate]);
+
     // //mounted
     // useEffect(() => {
     //     //console.log(currentRetailer.id);
@@ -44,14 +53,14 @@ const RetailerLogin = () => {
 
     function handleUsernameChange(event) {
         setUsername(event.target.value);
-        setUser(new User(event.target.value, password));
-        //console.log(user);
+        setRetailer(new User(event.target.value, password));
+        //console.log(retailer);
     }
 
     function handlePasswordChange(event) {
         setPassword(event.target.value);
-        setUser(new User(username, event.target.value));
-       // console.log(user);
+        setRetailer(new User(username, event.target.value));
+       // console.log(retailer);
     }
 
     
@@ -60,22 +69,20 @@ const RetailerLogin = () => {
       e.preventDefault();
 
       setSubmitted(true);
-      //handleUserChange();
-    //   console.log("username "+username+" pwd "+password);
-    //   console.log(user);
-    //   console.log("username "+user.username+" pwd "+user.password);
-   //     console.log("in handle login "+user.email+" "+user.password);
-      if (!user.username || !user.password) {
+      if (!retailer.username || !retailer.password) {
           return;
       }
 
       setLoading(true);
       
       
-      RetailerService.login(user).then(response => {
+      RetailerService.login(retailer).then(response => {
           console.log("login success "+response.data)
-          //set user in session.
-          dispatch(setCurrentRetailer(response.data));
+
+          sessionStorage.setItem('user', JSON.stringify({ username: retailer.username, role: 'retailer' }));
+          setUser({ username: retailer.username, role: 'retailer' });
+          //set retailer in session.
+          //dispatch(setCurrentRetailer(response.data));
         //  console.log("after dispatch");
        
         if(location.state){
@@ -84,7 +91,7 @@ const RetailerLogin = () => {
             }
             
         }else{
-            navigate('/home');
+            navigate('/retailer/home');
         }
           
          

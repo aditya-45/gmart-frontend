@@ -9,68 +9,7 @@ import '../lib/owlcarousel/assets/owl.carousel.min.css'
 
 
 function ProductCategoryCarousel() {
-//   const [categories, setCategories] = useState([{id:1,name:"prod1",description:"desc1",imageUrl:"../../images/nearby.jpg"},
-//   {id:2,name:"prod2",description:"desc2",imageUrl:"../../images/nearby.jpg"},
-//   {id:3,name:"prod3",description:"desc1",imageUrl:"../../images/nearby.jpg"},
-//   {id:4,name:"prod4",description:"desc2",imageUrl:"../../images/nearby.jpg"},
-//   {id:5,name:"prod5",description:"desc1",imageUrl:"../../images/nearby.jpg"},
-//   {id:6,name:"prod6",description:"desc2",imageUrl:"../../images/nearby.jpg"},
-//   {id:7,name:"prod7",description:"desc1",imageUrl:"../../images/nearby.jpg"},
-//   {id:8,name:"prod8",description:"desc2",imageUrl:"../../images/nearby.jpg"},
-//   {id:9,name:"prod9",description:"desc1",imageUrl:"../../images/nearby.jpg"},
-//   {id:10,name:"prod10",description:"desc2",imageUrl:"../../images/nearby.jpg"}]);
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const [categoriesPerPage] = useState(5);
 
-// //   useEffect(() => {
-// //     axios.get('/api/categories')
-// //       .then(response => {
-// //         setCategories(response.data);
-// //       })
-// //       .catch(error => {
-// //         console.error(error);
-// //       });
-// //   }, []);
-
-//   const indexOfLastCategory = currentPage * categoriesPerPage;
-//   const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
-//   const currentCategories = categories.slice(indexOfFirstCategory, indexOfLastCategory);
-
-//   const renderCategories = () => {
-//     const rows = [];
-//     for (let i = 0; i < currentCategories.length; i += 5) {
-//       rows.push(
-//         <Carousel.Item key={i}>
-//           <div className="row">
-//             {currentCategories.slice(i, i + 5).map(category => (
-//               <div className="col-sm-2" key={category.id}>
-//                 <img src={category.imageUrl} alt={category.name} />
-//                 <h5>{category.name}</h5>
-//                 <p>{category.description}</p>
-//                 <a href={`/products?category=${category.id}`}>View Products</a>
-//               </div>
-//             ))}
-//           </div>
-//         </Carousel.Item>
-//       );
-//     }
-//     return rows;
-//   };
-
-//   const pageNumbers = [];
-//   for (let i = 1; i <= Math.ceil(categories.length / categoriesPerPage); i++) {
-//     pageNumbers.push(i);
-//   }
-
-//   const renderPageNumbers = pageNumbers.map(number => (
-//     <li
-//       key={number}
-//       className={currentPage === number ? 'active' : null}
-//       onClick={() => setCurrentPage(number)}
-//     >
-//       {number}
-//     </li>
-//   ));
       const navigate = useNavigate();
 
     const renderCategory= (value) =>{

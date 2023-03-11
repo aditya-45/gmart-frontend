@@ -367,7 +367,7 @@ const CompanySignUp = () => {
 
                             </form>
 
-                            <Link to="/login" className="btn btn-link" style={{ color: 'darkgray' }}>
+                            <Link to="/login/company" className="btn btn-link" style={{ color: 'darkgray' }}>
                                 I have an Account!
                             </Link>
                         </div>

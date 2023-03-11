@@ -5,21 +5,21 @@ import 'bootstrap/dist/css/bootstrap.css';
 const Footer = () => {
     return (
         <div id="foot">
-            <div class="container-fluid bg-dark text-light footer mt-2 py-2 wow fadeIn" data-wow-delay="0.1s">
-                <div class="container py-5">
-                    <div class="row g-5">
-                        <div class="col-lg-6 col-md-6">
-                            <h4 class="text-white mb-4">Contact Us</h4>
-                            <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>CDAC, Pune</p>
-                            <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                            <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+            <div className="container-fluid bg-dark text-light footer mt-2 py-2 wow fadeIn" data-wow-delay="0.1s">
+                <div className="container py-5">
+                    <div className="row g-5">
+                        <div className="col-lg-6 col-md-6">
+                            <h4 className="text-white mb-4">Contact Us</h4>
+                            <p className="mb-2"><i className="fa fa-map-marker-alt me-3"></i>CDAC, Pune</p>
+                            <p className="mb-2"><i className="fa fa-phone-alt me-3"></i>+012 345 67890</p>
+                            <p className="mb-2"><i className="fa fa-envelope me-3"></i>info@example.com</p>
                         </div>
-                        <div class="col-lg-6 col-md-6">
-                            <h4 class="text-white mb-4">Quick Links</h4>
-                            <a class="btn btn-link" href="/about">About Us</a>
-                            <a class="btn btn-link" href="/home">Home</a>
-                            <a class="btn btn-link" href="/company/signup">Partner With Us</a>
-                            <a class="btn btn-link" href="/feedback">Feedback</a>
+                        <div className="col-lg-6 col-md-6">
+                            <h4 className="text-white mb-4">Quick Links</h4>
+                            <a className="btn btn-link" href="/about">About Us</a>
+                            <a className="btn btn-link" href="/home">Home</a>
+                            <a className="btn btn-link" href="/company/signup">Partner With Us</a>
+                            <a className="btn btn-link" href="/feedback">Feedback</a>
                         </div>
                        
                     </div>

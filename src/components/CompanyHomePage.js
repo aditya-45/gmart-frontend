@@ -7,6 +7,7 @@ import HomeCategory from "./HomeCategory";
 const CompanyHomePage = () => {
     return (
         <div>
+            <Header/>
             <h1>In Company Home Page</h1>
         </div>
         

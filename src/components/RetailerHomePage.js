@@ -2,12 +2,20 @@ import Footer from "./Footer";
 import Header from "./Header";
 import HomeCardComponent from "./HomeCardComponent";
 import HomeCarousel from "./HomeCarousel";
-import HomeCategory from "./HomeCategory";
+import CategoryList from "./CategoryList";
 
 const RetailerHomePage = () => {
     return (
         <div>
-            <h1>In Retailer Home Page</h1>
+            <Header/>
+            <HomeCarousel/>
+            <br/>
+            <br/>
+            <br/>
+            <CategoryList />
+            <a href="#" className="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
+            className="bi bi-arrow-up"></i></a>
+            <Footer/>
         </div>
         
     );
