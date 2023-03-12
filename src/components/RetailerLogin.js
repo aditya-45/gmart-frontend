@@ -13,7 +13,7 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { setCurrentRetailer } from '../store/actions/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from "react-router-dom";
-import { UserContext } from './UserContext';
+import { UserContext,CartContext } from './UserContext';
 
 
 const RetailerLogin = () => {
@@ -28,6 +28,7 @@ const RetailerLogin = () => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const location = useLocation();
+    const {cart, setCart} = useContext(CartContext);
 
     const currentRetailer = useSelector(state => state.retailer);
 
@@ -63,7 +64,19 @@ const RetailerLogin = () => {
        // console.log(retailer);
     }
 
-    
+    const addedInCart = (product) => {
+        //console.log(product);
+        let flag = false;
+        cart.forEach(element => {
+          // console.log(element.product.id);
+          // console.log(product.id);
+          if(element.product.id === product.id ) {
+            //console.log("in if condition");
+            flag = true;
+          }
+        });
+        return flag;
+      };
 
     const handleLogin = (e) => {
       e.preventDefault();
@@ -78,16 +91,22 @@ const RetailerLogin = () => {
       
       RetailerService.login(retailer).then(response => {
           console.log("login success "+response.data)
+          const retailerId = response.data.id;
 
-          sessionStorage.setItem('user', JSON.stringify({ username: retailer.username, role: 'retailer' }));
-          setUser({ username: retailer.username, role: 'retailer' });
+          sessionStorage.setItem('user', JSON.stringify({ username: retailer.username, role: 'retailer',id:retailerId }));
+          setUser({ username: retailer.username, role: 'retailer',id:retailerId });
           //set retailer in session.
           //dispatch(setCurrentRetailer(response.data));
         //  console.log("after dispatch");
        
         if(location.state){
             if(location.state.from === "homeBuyNow"){
-                navigate('/retailer/cart');
+                if(!addedInCart(location.state.prod)){
+                    const newCart = [...cart, {product:location.state.prod, quantity:1}];
+                    sessionStorage.setItem('cart', JSON.stringify(newCart));
+                    setCart(newCart);
+                  }
+                navigate('/retailer/cart'); //add retailerId in this endpoint
             }
             
         }else{

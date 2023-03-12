@@ -76,11 +76,11 @@ function OrderedProductsList() {
       <br/>
       <br/>
       <div className="container">
-        <h2 className="my-4">Ordered Products</h2>
+        <h2 className="my-4">My Orders</h2>
         <table className="table">
           <thead>
             <tr>
-              <th>Product Name</th>
+              <th>Ordered Items</th>
               <th>Order Date</th>
               <th>Details</th>
               <th>Track</th>
@@ -88,13 +88,13 @@ function OrderedProductsList() {
             </tr>
           </thead>
           <tbody>
-            {orderedProducts.map(product => (
-              <tr key={product.id}>
-                <td>{product.name}</td>
-                <td>{product.orderDate}</td>
+            {orderedProducts.map(order => (
+              <tr key={order.id}>
+                <td className='text-truncate'>{order.products.map(product => (<span key={product.id}>{product.productName} </span>))}</td>
+                <td>{order.orderDate}</td>
                 <td><button className="btn btn-primary">Details</button></td>
                 <td><button className="btn btn-primary">Track</button></td>
-                <td>{product.status}</td>
+                <td>{order.status}</td>
               </tr>
             ))}
           </tbody>

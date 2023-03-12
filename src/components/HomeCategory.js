@@ -112,7 +112,7 @@ function ProductCategoryCarousel() {
                         <h5 className="mb-0">Luggage</h5>
                     </div>
                 </div>
-                <div className="project-item mx-auto pe-5 pb-5 col-md-2" onClick={ () => renderCategory("TOYS_GAMES")} value="LUGGAGE">
+                <div className="project-item mx-auto pe-5 pb-5 col-md-2" onClick={ () => renderCategory("TOYS_GAMES")} value="TOYS_GAMES">
                     <div className="project-img mb-3">
                         <img className="img-fluid rounded" src="..\..\images\grocery.jpg" alt=""/>
                         <a><i className="fa fa-link fa-3x text-primary"></i></a>

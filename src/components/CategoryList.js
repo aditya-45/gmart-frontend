@@ -6,62 +6,77 @@ const CategoryList = () => {
   const categories = [
     {
       name: 'Grocery Staples',
+      val: 'GROCERY_STAPLES',
       image: 'grocery.jpg'
     },
     {
       name: 'Daily Essentials',
+      val: 'DAILY_ESSENTIALS',
       image: 'grocery.jpg'
     },
     {
       name: 'Electronics',
+      val: 'ELECTRONICS',
       image: 'grocery.jpg'
     },
     {
       name: 'Personal Care',
+      val: 'PERSONAL_CARE',
       image: 'grocery.jpg'
     },
     {
       name: 'Bed and Bath',
+      val: 'BED_BATH',
       image: 'grocery.jpg'
     },
     {
       name: 'Home Appliances',
+      val: 'HOME_APPLIANCES',
       image: 'grocery.jpg'
     },
     {
       name: 'Crockery',
+      val: 'CROCKERY',
       image: 'grocery.jpg'
     },
     {
       name: 'Footwear',
+      val: 'FOOTWEAR',
       image: 'grocery.jpg'
     },
     {
       name: 'Luggage',
+      val: 'LUGGAGE',
       image: 'grocery.jpg'
     },
     {
       name: 'Toys and Games',
+      val: 'TOYS_GAMES',
       image: 'grocery.jpg'
     },
     {
       name: 'Kid Apparel',
+      val: 'KID_APPAREL',
       image: 'grocery.jpg'
     },
     {
       name: 'Women Apparel',
+      val: 'WOMEN_APPAREL',
       image: 'grocery.jpg'
     },
     {
       name: 'Men Apparel',
+      val: 'MEN_APPAREL',
       image: 'grocery.jpg'
     },
     {
       name: 'Plastics and Containers',
+      val: 'PLASTIC_CONTAINERS',
       image: 'grocery.jpg'
     },
     {
       name: 'Daily Frozen',
+      val: 'DAIRY_FROZEN',
       image: 'grocery.jpg'
     },
   ];
@@ -83,7 +98,7 @@ const CategoryList = () => {
           <div
             key={category.name}
             className={`category-card${shouldStartNewRow ? ' new-row' : ''}`}
-            onClick={ () => renderCategory("GROCERY_STAPLES")} value="GROCERY_STAPLES"
+            onClick={ () => renderCategory(category.val)} value={category.val}
           >
             <img src={`../../images/${category.image}`} alt={category.name} />
             <h2>{category.name}</h2>

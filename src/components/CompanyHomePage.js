@@ -1,16 +1,35 @@
+import CompanyProducts from "./CompanyProducts";
 import Footer from "./Footer";
 import Header from "./Header";
-import HomeCardComponent from "./HomeCardComponent";
 import HomeCarousel from "./HomeCarousel";
-import HomeCategory from "./HomeCategory";
+import { useEffect, useState, useContext } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { UserContext } from './UserContext';
 
 const CompanyHomePage = () => {
+    const { user, setUser } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user || (user.role !== 'company')) {
+                navigate('/company/login');
+         }
+
+    }, []);
+
     return (
         <div>
-            <Header/>
-            <h1>In Company Home Page</h1>
+            <Header />
+            <HomeCarousel />
+            <br />
+            <br />
+            <br />
+            <br />
+            <CompanyProducts />
+
+            <Footer />
         </div>
-        
+
     );
 }
 

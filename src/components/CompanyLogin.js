@@ -2,7 +2,7 @@ import { useEffect, useState,useContext  } from 'react';
 import User from '../models/company';
 //import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import RetailerService from '../services/retailer.service';
+import CompanyService from '../services/company.service';
 //../../images/nearby.jpg
 //import '../css/register.page.css';
 import '../css/style.css';
@@ -10,8 +10,6 @@ import '../lib/animate/animate.min.css';
 import '../css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import { setCurrentCompany } from '../store/actions/user';
-import { useDispatch, useSelector } from 'react-redux';
 import { UserContext } from './UserContext';
 
 const CompanyLogin = () => {
@@ -33,7 +31,7 @@ const CompanyLogin = () => {
     useEffect(() => {
         if (user) {
             console.log("use effect" + user.username);
-          navigate('/company/home');
+          navigate('/company/1/home');
         }
       }, [user, navigate]);
     
@@ -60,7 +58,7 @@ const CompanyLogin = () => {
 
       setLoading(true);
       console.log("username "+company.username+" pwd "+company.password);
-      RetailerService.login(company).then(response => {
+      CompanyService.login(company).then(response => {
           console.log("login success "+response.data)
           //set company in session.
           console.log(company.username);

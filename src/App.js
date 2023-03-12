@@ -19,6 +19,8 @@ import ProductsByCategory from './components/ProductsByCategory';
 import Cart from './components/Cart';
 import { UserProvider,CartProvider } from './components/UserContext';
 import RetailerOrderedProductList from './components/RetailerOrderedProductList';
+import Checkout from './components/Checkout';
+import PartnerWithUs from './components/PartnerWithUs';
 
 
 function App() {
@@ -42,14 +44,24 @@ function App() {
                   <Route path="/login/company" element={<CompanyLogin/>}/>
                   <Route path="/feedback" element={<Feedback/>}/>
                   <Route path="/about" element={<AboutUs/>}/>
+                  <Route path="/partnerus" element={<PartnerWithUs/>}/>
 
                   <Route path="/retailer/productList" element={<RetailerOrderedProductList/>}/>
-                  <Route path="/retailer/home" element={<RetailerHomePage/>}/>
-                  <Route path="/company/home" element={<CompanyHomePage/>}/>
-                  <Route path="/category/:categoryName" element={<ProductsByCategory/>}/>
-                  <Route path="/retailer/category/:categoryName" element={<ProductsByCategory/>}/>
+                  {/* add retailer id in this endpoint */}
 
-                  <Route path='/retailer/cart' element={<Cart/>}/>
+                  <Route path="/retailer/home" element={<RetailerHomePage/>}/>
+                  <Route path="/company/:companyId/home" element={<CompanyHomePage/>}/>
+
+                  <Route path="/category/:categoryName" element={<ProductsByCategory/>}/>
+
+                  <Route path="/retailer/category/:categoryName" element={<ProductsByCategory/>}/>
+                  {/* add retailer id in this endpoint */}
+
+                  <Route path='/retailer/cart' element={<Cart/>}/> 
+                  {/* add retailer id in this endpoint */}
+
+                  <Route path='/retailer/checkout' element={<Checkout/>}/> 
+                  {/* add retailer id in this endpoint */}
                  
                   {/* <Route path="/login" element={<LoginPage/>}/>
                   <Route path="/register" element={<RegisterPage/>}/> */}

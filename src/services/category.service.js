@@ -9,6 +9,12 @@ class CategoryService {
     console.log(categoryName);
     return axios.get(BASE_URL + '/category/'+ categoryName);
   }
+
+  // getProductImage(id) {
+  //   return axios.get(`${BASE_URL}/${id}/image`, {
+  //     responseType: 'blob',
+  //   }); //.then(res=>{setPic(URL.createObjectURL(res.data));//console.log(res.data)
+  // }
 }
 
 export default new CategoryService();

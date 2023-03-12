@@ -18,6 +18,8 @@ const ProductsByCategory = () => {
   const [sortedProducts, setSortedProducts] = useState([]);
   const [sortingOrder, setSortingOrder] = useState("ascending");
 
+  const BASE_URL="http://localhost:9090/";
+
 
   useEffect(() => {
     //console.log("in category use effect");
@@ -29,11 +31,16 @@ const ProductsByCategory = () => {
 
 
 
-  const handleClick = (event) => {
+  const handleClick = (product) => {
     //console.log(event.target.value);
     if(user === null){
-      navigate("/login/retailer", { state: { from: "homeBuyNow", prodId: event.target.value } });
+      navigate("/login/retailer", { state: { from: "homeBuyNow", prod: product } });
     }else{
+      if(!addedInCart(product)){
+        const newCart = [...cart, {product:product, quantity:1}];
+        sessionStorage.setItem('cart', JSON.stringify(newCart));
+        setCart(newCart);
+      }
       navigate("/retailer/cart");
     }
     
@@ -61,19 +68,6 @@ const ProductsByCategory = () => {
     return flag;
   };
 
-  // const quantityGreaterThanZero = (product) => {
-  //   //console.log(product);
-  //   let flag = false;
-  //   cart.forEach(element => {
-  //     // console.log(element.product.id);
-  //     // console.log(product.id);
-  //     if(element.quantity > 0 ) {
-  //       //console.log("in if condition");
-  //       flag = true;
-  //     }
-  //   });
-  //   return flag;
-  // };
 
   const incrementQuantity = (product) => {
     const newCart = [...cart];
@@ -188,16 +182,16 @@ const ProductsByCategory = () => {
             <h5>Sort By</h5>
           </div>
           <div className="col-md-2">
-            <button type="button" className="btn btn-link text-dark" onClick={handleSortByName}>Product Name</button>
+            <button type="button" className="btn btn-link text-dark" onClick={handleSortByName}>Product Name <span>&#8593;</span> <span>&#8595;</span></button>
           </div>
           <div className="col-md-2">
-            <button type="button" className="btn btn-link text-dark" onClick={handleSortByPrice}>Price</button>
+            <button type="button" className="btn btn-link text-dark" onClick={handleSortByPrice}>Price <span>&#8593;</span> <span>&#8595;</span></button>
           </div>
           <div className="col-md-2">
-            <button type="button" className="btn btn-link text-dark" onClick={handleSortByDiscount} >Discount</button>
+            <button type="button" className="btn btn-link text-dark" onClick={handleSortByDiscount} >Discount <span>&#8593;</span> <span>&#8595;</span></button>
           </div>
           <div className="col-md-2">
-            <button type="button" className="btn btn-link text-dark" onClick={handleSortByCompany} >Company Name</button>
+            <button type="button" className="btn btn-link text-dark" onClick={handleSortByCompany} >Company Name <span>&#8593;</span> <span>&#8595;</span></button>
           </div>
         </div>
       </div>
@@ -206,14 +200,14 @@ const ProductsByCategory = () => {
           <div key={product.id} className="card mb-3">
             <div className="row g-0">
               <div className="col-md-4">
-                <img src="..\..\images\grocery.jpg" className="img-fluid rounded-start" alt="Product Image" />
+                <img src={BASE_URL +product.id +'/image'}  className="img-fluid rounded-start" alt="Product Image" />
               </div>
               <div className="col-md-8">
                 <div className="card-body">
                   <h5 className="card-title">{product.productName}</h5>
                   <div className="row">
                     <div className="col-md-5">
-                      <p className="card-text"><span className="badge text-bg-secondary">Price: <span className="text-warning">{calculatePrice(product.mrp, product.discount)}</span> <span className="text-info" style={{ textDecoration: 'line-through' }}>{product.mrp}</span></span> </p>
+                      <p className="card-text"><span className="badge text-bg-secondary">Price: <span className="text-warning">Rs. {calculatePrice(product.mrp, product.discount)}</span> <span className="text-info" style={{ textDecoration: 'line-through' }}>{product.mrp}</span></span> </p>
                       <p className="card-text"><span className="badge text-bg-secondary">Discount: <span className="text-warning">{product.discount}</span></span> </p>
                       <p className="card-text"><span className="badge text-bg-secondary">Company: <span className="text-warning">{product.company.companyName}</span></span> </p>
 
@@ -222,18 +216,12 @@ const ProductsByCategory = () => {
                       <div className="card-text">
                         {product.description}
                         <br />
-                        had fihafaofo aifoasfoaisf
-                        asjhasfasfoasfoasfapofasf
-                        ajhfshfasfoasfpaifpaifaf
-                        ashfjahsflashfaasjfoasfoaf
-                        asjflksjaljflkasjfkajlkfkjaf
-                        ahfasfoafalfjiajjojihg
                       </div>
                     </div>
                   </div>
                   <br />
                   <div className="row">
-                    <button onClick={handleClick} className="btn btn-outline-dark col-3  mx-auto" value={product.id}>Buy Now</button>
+                    <button onClick={()=>handleClick(product)} className="btn btn-outline-dark col-3  mx-auto" value={product.id}>Buy Now</button>
                     {user !== null && !addedInCart(product) ? <button onClick={()=>handleCart(product)} className="btn btn-outline-dark col-3  mx-auto" value={product.id}>Add to Cart</button>:''}
                     {user !== null && addedInCart(product)  ? <div className="container col-3 mx-auto">
                                                     <div className="row">
@@ -256,7 +244,7 @@ const ProductsByCategory = () => {
                           <div className="modal-header">
                             <h5 className="modal-title fs-5" id={`exampleModalLabel${product.id}`}>{product.productName}</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                              {/* <span aria-hidden="true">&times;</span> */}
+                              
                             </button>
                           </div>
                           <div className="modal-body">
@@ -264,11 +252,7 @@ const ProductsByCategory = () => {
                             <p>Discount: {product.discount}</p>
                             <p>Final Price: {calculatePrice(product.mrp,product.discount)}</p>
                             <p>Description: {product.description}</p>
-                            <p>This is product description
-                              kjfhjd ddflksdf ksdj fkdjfksdf
-                              djshfsdf jsdhfdfjhd jfhsdjfhjdf
-                              jhjfhjdf sjdfdh fjhsf jhdjfhdjf
-                            </p>
+                           
                           </div>
                           <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
