@@ -18,7 +18,7 @@ const HomeCardComponent = () => {
                 <div className="card col-md-5 w-50 h-50 retail" onClick={handleRetailer}>
                     <img className="card-img-top" src="..\..\images\rs1.jpg" alt="Card image cap"></img>
                     <div className="card-img-overlay">
-                        <h5 className="card-title">Retail Store Owner</h5>
+                        <h5 className="card-title">Login as Retail Store Owner</h5>
                         
                     </div>
                 </div>
@@ -27,7 +27,7 @@ const HomeCardComponent = () => {
                     <div className="card m-1 w-100" onClick={handleCompany}>
                         <img className="card-img-top" src="..\..\images\i1.jpg" alt="Card image cap"></img>
                         <div className="card-img-overlay">
-                            <h5 className="card-title">Company</h5>
+                            <h5 className="card-title">Login as Company</h5>
                             
                         </div>
                     </div>

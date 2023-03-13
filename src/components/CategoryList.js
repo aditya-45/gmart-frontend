@@ -12,72 +12,72 @@ const CategoryList = () => {
     {
       name: 'Daily Essentials',
       val: 'DAILY_ESSENTIALS',
-      image: 'grocery.jpg'
+      image: 'categories/daily_essential.jpg'
     },
     {
       name: 'Electronics',
       val: 'ELECTRONICS',
-      image: 'grocery.jpg'
+      image: 'categories/electronics.jpg'
     },
     {
       name: 'Personal Care',
       val: 'PERSONAL_CARE',
-      image: 'grocery.jpg'
+      image: 'categories/personal_care.jpg'
     },
     {
       name: 'Bed and Bath',
       val: 'BED_BATH',
-      image: 'grocery.jpg'
+      image: 'categories/bed.png'
     },
     {
       name: 'Home Appliances',
       val: 'HOME_APPLIANCES',
-      image: 'grocery.jpg'
+      image: '/categories/home_appliances.jpg'
     },
     {
       name: 'Crockery',
       val: 'CROCKERY',
-      image: 'grocery.jpg'
+      image: 'categories/crockery.jpg'
     },
     {
       name: 'Footwear',
       val: 'FOOTWEAR',
-      image: 'grocery.jpg'
+      image: 'categories/footwear.jpg'
     },
     {
       name: 'Luggage',
       val: 'LUGGAGE',
-      image: 'grocery.jpg'
+      image: 'categories/luggage.jpg'
     },
     {
       name: 'Toys and Games',
       val: 'TOYS_GAMES',
-      image: 'grocery.jpg'
+      image: 'categories/toys.jpg'
     },
     {
       name: 'Kid Apparel',
       val: 'KID_APPAREL',
-      image: 'grocery.jpg'
+      image: 'categories/kids.jpg'
     },
     {
       name: 'Women Apparel',
       val: 'WOMEN_APPAREL',
-      image: 'grocery.jpg'
+      image: 'categories/women.jpg'
     },
     {
       name: 'Men Apparel',
       val: 'MEN_APPAREL',
-      image: 'grocery.jpg'
+      image: 'categories/men.jpg'
     },
     {
       name: 'Plastics and Containers',
       val: 'PLASTIC_CONTAINERS',
-      image: 'grocery.jpg'
+      image: 'categories/plastic.jpg'
     },
     {
       name: 'Daily Frozen',
       val: 'DAIRY_FROZEN',
-      image: 'grocery.jpg'
+      image: 'categories/frozen.jpg'
     },
   ];
 

@@ -46,10 +46,10 @@ function App() {
                   <Route path="/about" element={<AboutUs/>}/>
                   <Route path="/partnerus" element={<PartnerWithUs/>}/>
 
-                  <Route path="/retailer/productList" element={<RetailerOrderedProductList/>}/>
+                  <Route path="/retailer/:retailerId/productList" element={<RetailerOrderedProductList/>}/>
                   {/* add retailer id in this endpoint */}
 
-                  <Route path="/retailer/home" element={<RetailerHomePage/>}/>
+                  <Route path="/retailer/:retailerId/home" element={<RetailerHomePage/>}/>
                   <Route path="/company/:companyId/home" element={<CompanyHomePage/>}/>
 
                   <Route path="/category/:categoryName" element={<ProductsByCategory/>}/>
@@ -57,10 +57,10 @@ function App() {
                   <Route path="/retailer/category/:categoryName" element={<ProductsByCategory/>}/>
                   {/* add retailer id in this endpoint */}
 
-                  <Route path='/retailer/cart' element={<Cart/>}/> 
+                  <Route path='/retailer/:retailerId/cart' element={<Cart/>}/> 
                   {/* add retailer id in this endpoint */}
 
-                  <Route path='/retailer/checkout' element={<Checkout/>}/> 
+                  <Route path='/retailer/:retailerId/checkout' element={<Checkout/>}/> 
                   {/* add retailer id in this endpoint */}
                  
                   {/* <Route path="/login" element={<LoginPage/>}/>

@@ -41,7 +41,7 @@ const ProductsByCategory = () => {
         sessionStorage.setItem('cart', JSON.stringify(newCart));
         setCart(newCart);
       }
-      navigate("/retailer/cart");
+      navigate('/retailer/'+user.id+'/cart');
     }
     
   };
@@ -200,7 +200,7 @@ const ProductsByCategory = () => {
           <div key={product.id} className="card mb-3">
             <div className="row g-0">
               <div className="col-md-4">
-                <img src={BASE_URL +product.id +'/image'}  className="img-fluid rounded-start" alt="Product Image" />
+                <img src={BASE_URL +product.id +'/image'}  className="img-fluid rounded-start" style={{width:'225px',height:'225px'}} alt="Product Image" />
               </div>
               <div className="col-md-8">
                 <div className="card-body">

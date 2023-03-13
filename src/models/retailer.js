@@ -1,5 +1,6 @@
+import RAddressDto from './RAddressDto';
 export default class User{
-    constructor(username, password,fullName,  contactNumber, email,alternateMobNumber,address, token, id) {
+    constructor(username, password,fullName,  contactNumber, email,alternateMobNumber,rAddress = new RAddressDto('', '', '', '', '', ''), token, id) {
        
         this.fullName = fullName;
         this.username = username;
@@ -7,14 +8,13 @@ export default class User{
         this.contactNumber = contactNumber;
         this.email = email;
         this.alternateMobNumber = alternateMobNumber;
-        this.address = null;
         this.token = token;
-        this.address = address;
+        this.rAddress = new RAddressDto(rAddress.shopNo, rAddress.streetName, rAddress.locality, rAddress.city, rAddress.state, rAddress.pincode);
         this.id = id;
     }
 
     setAddr(newAddress) {
-        this.address = {...this.address, ...newAddress}
+        this.rAddress = {...this.rAddress, ...newAddress}
       }
     
       

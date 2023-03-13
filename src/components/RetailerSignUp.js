@@ -15,17 +15,55 @@ import { FloatingLabel } from 'react-bootstrap';
 
 const RetailerSignUp = () => {
 
-    const [user, setUser] = useState(new User('', '', '', '', '', '', { shopNo: '', streetName: '', locality: '', city: '', state: '', pincode: '' }));
-    const [username, setUsername] = useState(user.username);
-    const [fullName, setFullName] = useState(user.fullName);
-    const [password, setPassword] = useState(user.password);
-    const [email, setEmail] = useState(user.email);
-    const [contactNumber, setContactNumber] = useState(user.contactNumber);
-    const [alternateMobNumber, setAlternateMobNumber] = useState(user.alternateMobNumber);
-    const [address, setAddress] = useState(user.address);
-    const [loading, setLoading] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+    // const [user, setUser] = useState(new User('', '', '', '', '', '', { shopNo: '', streetName: '', locality: '', city: '', state: '', pincode: '' }));
+    // const [username, setUsername] = useState(user.username);
+    // const [fullName, setFullName] = useState(user.fullName);
+    // const [password, setPassword] = useState(user.password);
+    // const [email, setEmail] = useState(user.email);
+    // const [contactNumber, setContactNumber] = useState(user.contactNumber);
+    // const [alternateMobNumber, setAlternateMobNumber] = useState(user.alternateMobNumber);
+    // const [rAddress, setRAddress] = useState(user.rAddress);
+     const [loading, setLoading] = useState(false);
+     const [submitted, setSubmitted] = useState(false);
+     const [errorMessage, setErrorMessage] = useState('');
+
+    const [formData, setFormData] = useState({
+        username: '',
+        fullName: '',
+        password: '',
+        email: '',
+        contactNumber: '',
+        alternateMobNumber: '',
+        rAddress: {
+          shopNo: '',
+          streetName: '',
+          locality: '',
+          city: '',
+          state: '',
+          pincode: '',
+        },
+      });
+
+      function handleInputChange(event) {
+        const { name, value } = event.target;
+        setFormData({
+          ...formData,
+          [name]: value,
+        });
+      }
+      
+      function handleAddressChange(event) {
+        const { name, value } = event.target;
+        setFormData({
+          ...formData,
+          rAddress: {
+            ...formData.rAddress,
+            [name]: value,
+          },
+        });
+      }
+      
+      
 
     //const currentUser = useSelector(state => state.user);
 
@@ -41,37 +79,37 @@ const RetailerSignUp = () => {
 
     //<input name="x" value="y" onChange=(event) => handleChange(event)>
 
-    function handleUsernameChange(event) {
-        setUsername(event.target.value);
-    }
-    function handleFullnameChange(event) {
-        setFullName(event.target.value);
+    // function handleUsernameChange(event) {
+    //     setUsername(event.target.value);
+    // }
+    // function handleFullnameChange(event) {
+    //     setFullName(event.target.value);
 
-    }
-    function handlePasswordChange(event) {
-        setPassword(event.target.value);
+    // }
+    // function handlePasswordChange(event) {
+    //     setPassword(event.target.value);
 
-    }
-    function handleContactNoChange(event) {
-        setContactNumber(event.target.value);
+    // }
+    // function handleContactNoChange(event) {
+    //     setContactNumber(event.target.value);
 
-    }
-    function handleEmailChange(event) {
-        setEmail(event.target.value);
-    }
-    function handleAltContactChange(event) {
-        setAlternateMobNumber(event.target.value);
-    }
-    function handleAddressChange(newAddress) {
-        setAddress(newAddress);
-        setUser(new User(username, password, fullName,  contactNumber, email, alternateMobNumber, address));
+    // }
+    // function handleEmailChange(event) {
+    //     setEmail(event.target.value);
+    // }
+    // function handleAltContactChange(event) {
+    //     setAlternateMobNumber(event.target.value);
+    // }
+    // function handleAddressChange(newAddress) {
+    //     setRAddress(newAddress);
+    //     setUser(new User(username, password, fullName,  contactNumber, email, alternateMobNumber, rAddress));
 
-    }
+    // }
 
     // const handleChange = (e) => {
     //   const {name, value} = e.target;
 
-    //   setAddress((prevState => {
+    //   setRAddress((prevState => {
     //     //e.g: prevState ({user: x, pass: x}) + newKeyValue ({user: xy}) => ({user: xy, pass: x})
     //     return {
     //         ...prevState,
@@ -95,19 +133,30 @@ const RetailerSignUp = () => {
 
         setSubmitted(true);
         //console.log(user);
-        //console.log(address);
+        //console.log(rAddress);
 
-        console.log(user);
-        if (!user.fullName || !user.username || !user.password || !user.email || !user.contactNumber) {
+        const newUser = new User(
+            formData.username,
+            formData.password,
+            formData.fullName,
+            formData.contactNumber,
+            formData.email,
+            formData.alternateMobNumber,
+            formData.rAddress
+          );
+          
+
+        console.log(newUser);
+        if (!newUser.fullName || !newUser.username || !newUser.password || !newUser.email || !newUser.contactNumber) {
             return;
         }
-        if (!address.shopNo || !address.locality || !address.city || !address.streetName || !address.state || !address.pincode) {
+        if (!newUser.rAddress.shopNo || !newUser.rAddress.locality || !newUser.rAddress.city || !newUser.rAddress.streetName || !newUser.rAddress.state || !newUser.rAddress.pincode) {
             return;
         }
 
         setLoading(true);
 
-        RetailerService.register(user).then(_ => {
+        RetailerService.register(newUser).then(_ => {
             navigate('/login/retailer');
         }).catch(error => {
             console.log(error);
@@ -149,8 +198,8 @@ const RetailerSignUp = () => {
                                                 name="fullName"
                                                 className="form-control"
                                                 placeholder="Enter Full Name"
-                                                value={fullName}
-                                                onChange={handleFullnameChange}
+                                                value={formData.fullName}
+                                                onChange={handleInputChange}
                                                 required
                                             />
                                             <label htmlFor="fullName">Full Name:</label>
@@ -171,8 +220,8 @@ const RetailerSignUp = () => {
                                                 name="username"
                                                 className="form-control"
                                                 placeholder="Enter Username"
-                                                value={username}
-                                                onChange={handleUsernameChange}
+                                                value={formData.username}
+                                                onChange={handleInputChange}
                                                 required
                                             />
                                             <label htmlFor="username">Username:</label>
@@ -192,8 +241,8 @@ const RetailerSignUp = () => {
                                                 name="password"
                                                 className="form-control"
                                                 placeholder="Enter Password"
-                                                value={password}
-                                                onChange={handlePasswordChange}
+                                                value={formData.password}
+                                                onChange={handleInputChange}
                                                 required
                                             />
                                             <label htmlFor="password">Password:</label>
@@ -212,8 +261,8 @@ const RetailerSignUp = () => {
                                                 name="email"
                                                 className="form-control"
                                                 placeholder="Enter Email"
-                                                value={email}
-                                                onChange={handleEmailChange}
+                                                value={formData.email}
+                                                onChange={handleInputChange}
                                                 required
                                             />
                                             <label htmlFor="email">Email:</label>
@@ -233,8 +282,8 @@ const RetailerSignUp = () => {
                                                 name="contactNumber"
                                                 className="form-control"
                                                 placeholder="Enter Contact Number"
-                                                value={contactNumber}
-                                                onChange={handleContactNoChange}
+                                                value={formData.contactNumber}
+                                                onChange={handleInputChange}
                                                 required
                                             />
                                             <label htmlFor="contactNumber">Contact Number:</label>
@@ -252,8 +301,8 @@ const RetailerSignUp = () => {
                                                 name="alternateMobNumber"
                                                 className="form-control"
                                                 placeholder="Enter Alternate Contact Number"
-                                                value={alternateMobNumber}
-                                                onChange={handleAltContactChange}
+                                                value={formData.alternateMobNumber}
+                                                onChange={handleInputChange}
                                                 required
                                             />
                                             <label htmlFor="alternateMobNumber">Alternate Contact Number:</label>
@@ -274,8 +323,8 @@ const RetailerSignUp = () => {
                                                     name="shopNo"
                                                     className="form-control"
                                                     placeholder="Enter Shop Number"
-                                                    value={address.shopNo}
-                                                    onChange={(event) => handleAddressChange({ ...address, shopNo: event.target.value })}
+                                                    value={formData.rAddress.shopNo}
+                                                    onChange={handleAddressChange}
                                                     required
                                                 />
                                                  <label htmlFor="shopNo">Shop No:</label>
@@ -290,8 +339,8 @@ const RetailerSignUp = () => {
                                                     name="streetName"
                                                     className="form-control"
                                                     placeholder="Enter Street Name"
-                                                    value={address.streetName}
-                                                    onChange={(event) => handleAddressChange({ ...address, streetName: event.target.value })}
+                                                    value={formData.rAddress.streetName}
+                                                    onChange={handleAddressChange}
                                                     required
                                                 />
                                                  <label htmlFor="streetName">Street Name:</label>
@@ -308,8 +357,8 @@ const RetailerSignUp = () => {
                                                     name="locality"
                                                     className="form-control"
                                                     placeholder="Enter Locality"
-                                                    value={address.locality}
-                                                    onChange={(event) => handleAddressChange({ ...address, locality: event.target.value })}
+                                                    value={formData.rAddress.locality}
+                                                    onChange={handleAddressChange}
                                                     required
                                                 />
                                                  <label htmlFor="locality">Locality:</label>
@@ -324,8 +373,8 @@ const RetailerSignUp = () => {
                                                     name="city"
                                                     className="form-control"
                                                     placeholder="Enter City"
-                                                    value={address.city}
-                                                    onChange={(event) => handleAddressChange({ ...address, city: event.target.value })}
+                                                    value={formData.rAddress.city}
+                                                    onChange={handleAddressChange}
                                                     required
                                                 />
                                                  <label htmlFor="city">City:</label>
@@ -342,8 +391,8 @@ const RetailerSignUp = () => {
                                                     name="state"
                                                     className="form-control"
                                                     placeholder="Enter State"
-                                                    value={address.state}
-                                                    onChange={(event) => handleAddressChange({ ...address, state: event.target.value })}
+                                                    value={formData.rAddress.state}
+                                                    onChange={handleAddressChange}
                                                     required
                                                 />
                                                  <label htmlFor="state">State:</label>
@@ -358,8 +407,8 @@ const RetailerSignUp = () => {
                                                     name="pincode"
                                                     className="form-control"
                                                     placeholder="Enter Pincode"
-                                                    value={address.pincode}
-                                                    onChange={(event) => handleAddressChange({ ...address, pincode: event.target.value })}
+                                                    value={formData.rAddress.pincode}
+                                                    onChange={handleAddressChange}
                                                     required
                                                 />
                                                  <label htmlFor="pincode">Pincode:</label>

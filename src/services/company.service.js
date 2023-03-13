@@ -26,6 +26,10 @@ class CompanyService {
     return axios.post(BASE_URL + '/company/' + id + "/add", product);
   }
 
+  editProduct(id,product) {
+    return axios.put(BASE_URL + '/company/' + id + '/product/' + product.id , product);
+  }
+
   //upload product image
   uploadProductImage(id, image, productId) {
     let formData = new FormData();

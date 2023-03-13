@@ -31,7 +31,7 @@ const CompanyLogin = () => {
     useEffect(() => {
         if (user) {
             console.log("use effect" + user.username);
-          navigate('/company/1/home');
+          navigate('/company/'+ user.id + '/home');
         }
       }, [user, navigate]);
     
@@ -62,8 +62,9 @@ const CompanyLogin = () => {
           console.log("login success "+response.data)
           //set company in session.
           console.log(company.username);
-          sessionStorage.setItem('user', JSON.stringify({ username: company.username, role: 'company' }));
-          setUser({ username: company.username, role: 'company' });
+         // console.log(response.data);
+          sessionStorage.setItem('user', JSON.stringify({ username: company.username, role: 'company', id: response.data}));
+          setUser({ username: company.username, role: 'company',id: response.data });
           
           //dispatch(setCurrentCompany(response.data));
         //  console.log("after dispatch");

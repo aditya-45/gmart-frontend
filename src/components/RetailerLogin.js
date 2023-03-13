@@ -10,8 +10,6 @@ import '../lib/animate/animate.min.css';
 import '../css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import { setCurrentRetailer } from '../store/actions/user';
-import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from "react-router-dom";
 import { UserContext,CartContext } from './UserContext';
 
@@ -30,16 +28,14 @@ const RetailerLogin = () => {
     const location = useLocation();
     const {cart, setCart} = useContext(CartContext);
 
-    const currentRetailer = useSelector(state => state.retailer);
 
     const navigate = useNavigate();
 
-    const dispatch = useDispatch();
 
     useEffect(() => {
         if (user) {
             console.log("use effect" + user.username);
-          navigate('/retailer/home');
+          navigate('/retailer/'+ user.id +'/home');
         }
       }, [user, navigate]);
 
@@ -91,7 +87,7 @@ const RetailerLogin = () => {
       
       RetailerService.login(retailer).then(response => {
           console.log("login success "+response.data)
-          const retailerId = response.data.id;
+          const retailerId = response.data;
 
           sessionStorage.setItem('user', JSON.stringify({ username: retailer.username, role: 'retailer',id:retailerId }));
           setUser({ username: retailer.username, role: 'retailer',id:retailerId });
@@ -106,11 +102,11 @@ const RetailerLogin = () => {
                     sessionStorage.setItem('cart', JSON.stringify(newCart));
                     setCart(newCart);
                   }
-                navigate('/retailer/cart'); //add retailerId in this endpoint
+                navigate('/retailer/'+user.id+'/cart'); //add retailerId in this endpoint
             }
             
         }else{
-            navigate('/retailer/home');
+            navigate('/retailer/'+user.id+'/home');
         }
           
          

@@ -9,16 +9,34 @@ class RetailerService {
   }
 
   register(user) {
+    console.log(user);
     return axios.post(BASE_URL + '/signup/retailer', user);
   }
 
-  getOrders(){
-    return axios.get(BASE_URL + '/orders/retailer');
+  getOrders(id){
+    return axios.get(BASE_URL + '/retailer/' + id + '/myOrder');
   }
 
   getCategories(categoryName) {
     console.log(categoryName);
     return axios.get(BASE_URL + '/category/'+ categoryName); //change url
+  }
+
+  getAddress(id){
+    return axios.get(BASE_URL + '/retailer/' + id + '/listOfAddress');
+  }
+
+  saveAddress(id, address){
+    return axios.post(BASE_URL + '/retailer/' + id + '/addNewAddress', address);
+  }
+
+  editAddress(id, address){
+    console.log(address);
+    return axios.put(BASE_URL + '/retailer/' + id + '/address/' + address.id, address);
+  }
+
+  order(id, cart){
+    return axios.post(BASE_URL + '/retailer/' + id + '/createAnOrder', cart);
   }
 }
 

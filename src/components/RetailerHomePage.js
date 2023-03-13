@@ -1,10 +1,23 @@
 import Footer from "./Footer";
 import Header from "./Header";
-import HomeCardComponent from "./HomeCardComponent";
 import HomeCarousel from "./HomeCarousel";
 import CategoryList from "./CategoryList";
+import { useEffect, useState, useContext } from 'react';
+import { UserContext } from './UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const RetailerHomePage = () => {
+
+    const navigate = useNavigate();
+    const { user, setUser } = useContext(UserContext);
+
+    //const dispatch = useDispatch();
+    useEffect(() => {
+        if (!user || user.role === 'company') {
+          navigate('/login/retailer');
+        }
+      }, [user, navigate]);
+
     return (
         <div>
             <Header/>

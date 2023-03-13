@@ -4,6 +4,7 @@ import { useEffect, useState, useContext } from 'react';
 import { UserContext } from './UserContext';
 import Product from '../models/product';
 
+
 const CompanyProducts = () => {
 
     const { companyId } = useParams();
@@ -16,6 +17,8 @@ const CompanyProducts = () => {
     const [sortingOrder, setSortingOrder] = useState("ascending");
     const [image, setImage] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [message, setMessage] = useState('');
+    
 
     useEffect(() => {
         if (user) {
@@ -51,6 +54,9 @@ const CompanyProducts = () => {
             CompanyService.uploadProductImage(companyId, image, response.data.id).then(data => {
                 console.log("Image Uploaded !!");
                 setShowModal(false);
+                setProducts([...products, product]);
+                setSortedProducts([...products, product]);
+                setProduct(new Product('', '', '', '', '', '', ''));
             }).catch(error => {
                 //    console.error("Error in uploading image")
                 console.log(error)
@@ -62,6 +68,7 @@ const CompanyProducts = () => {
     };
 
     const handleChange = (e) => {
+        
         const { name, value } = e.target;
 
         setProduct((prevState => {
@@ -75,38 +82,55 @@ const CompanyProducts = () => {
     const editProduct = (e) => {
         e.preventDefault();
 
-        console.log(product);
+        console.log(eproduct);
 
-        if (!product.id || !product.productName || !product.description || !product.mrp || !product.category || !product.quantity || !product.discount) {
+        if (!eproduct.id || !eproduct.productName || !eproduct.description || !eproduct.mrp || !eproduct.category || !eproduct.quantity || !eproduct.discount) {
             return;
         }
-        //no field validation errs , proceed to saving a product
+        
+        const element = document.querySelector(`#msg`);     
 
-        // CompanyService.saveProduct(companyId, product).then(response => {
-        //     //no errs in saving basic product details --proceed to image upload
-        //     console.log("saved product " + response.data.id + " " + image);
-        //     CompanyService.uploadProductImage(companyId, image, response.data.id).then(data => {
-        //         console.log("Image Uploaded !!");
-        //         setShowModal(false);
-        //     }).catch(error => {
-        //         //    console.error("Error in uploading image")
-        //         console.log(error)
-        //     })
+        CompanyService.editProduct(companyId, eproduct).then(response => {
+            //no errs in saving basic product details --proceed to image upload
+            console.log("updated product ");
 
-        // }).catch(err => {
-        //     console.log(err);
-        // });
+
+            setMessage("Data Updated Successfully");
+            element.innerHTML = message;
+            setProducts(products.map((product) => {
+                if (product.id === eproduct.id) {
+                  return eproduct;
+                } else {
+                  return product;
+                }
+              }));
+              setSortedProducts(sortedProducts.map((product) => {
+                if (product.id === eproduct.id) {
+                  return eproduct;
+                } else {
+                  return product;
+                }
+              }));
+            //setShowModal(false);        
+
+        }).catch(err => {
+            console.log(err);
+            setMessage(err.message);
+            element.innerHTML = message;
+        });
     };
 
-    const handleEditChange = (e) => {
-        const { name, value } = e.target;
-
+    const handleEditChange = (event) => {
+        const { name, value } = event.target;
+        //console.log("in handleEditChange");
+        //console.log(eproduct);
         setEproduct((prevState => {
             return {
                 ...prevState,
                 [name]: value
             };
         }));
+        console.log(eproduct);
     };
 
     function handleCategoryChange(e) {
@@ -367,6 +391,7 @@ const CompanyProducts = () => {
                                             </div>
                                             <div className="modal-body">
                                                 <form onSubmit={(e) => editProduct(e)}>
+                                                    <div className="mb-1 form-group text-info" id="msg"></div>
                                                     <div className="mb-1 form-group">
                                                         <label htmlFor="productName" className="col-form-label">Product Name:</label>
                                                         <input
@@ -374,7 +399,7 @@ const CompanyProducts = () => {
                                                             name="productName"
                                                             placeholder="Product Name"
                                                             className="form-control"
-                                                            value={product.productName}
+                                                            value={eproduct.productName}
                                                             required
                                                             disabled
                                                         />
@@ -389,7 +414,7 @@ const CompanyProducts = () => {
                                                             name="mrp"
                                                             placeholder="Price"
                                                             className="form-control"
-                                                            value={product.mrp}
+                                                            value={eproduct.mrp}
                                                             onChange={(e) => handleEditChange(e)}
                                                             required
                                                         />
@@ -404,7 +429,7 @@ const CompanyProducts = () => {
                                                             name="discount"
                                                             placeholder="Discount"
                                                             className="form-control"
-                                                            value={product.discount}
+                                                            value={eproduct.discount}
                                                             onChange={(e) => handleEditChange(e)}
                                                             required
                                                         />
@@ -419,7 +444,7 @@ const CompanyProducts = () => {
                                                             name="quantity"
                                                             placeholder="Quantity"
                                                             className="form-control"
-                                                            value={product.quantity}
+                                                            value={eproduct.quantity}
                                                             onChange={(e) => handleEditChange(e)}
                                                             required
                                                         />
@@ -433,7 +458,7 @@ const CompanyProducts = () => {
                                                             name="description"
                                                             placeholder="Add description"
                                                             className="form-control"
-                                                            value={product.description}
+                                                            value={eproduct.description}
                                                             onChange={(e) => handleEditChange(e)}
                                                             required
                                                         />

@@ -18,9 +18,9 @@ const HomePage = () => {
         //console.log(user);
         if (user) {
             if(user.username !== '' && user.role === 'company'){
-                navigate('/company/1/home');
+                navigate('/company/'+user.id+'/home');
             }else if(user.username !== '' && user.role === 'retailer'){
-                navigate('/retailer/home');
+                navigate('/retailer/'+user.id+'/home');
             }
             else{
                 navigate('/');

@@ -31,7 +31,7 @@ function ProductCategoryCarousel() {
               <div className="row carousel-item active">
                 <div className="project-item mx-auto pe-5 pb-5 col-md-2 " onClick={ () => renderCategory("GROCERY_STAPLES")} value="GROCERY_STAPLES">
                     <div className="project-img mb-3">
-                        <img className="img-fluid rounded" src="..\..\images\grocery.jpg" alt=""/>
+                        <img className="img-fluid border rounded" src="..\..\images\grocery.jpg" alt="" style={{height:'150px', width:'200px'}}/>
                         <a><i className="fa fa-link fa-3x text-primary"></i></a>
                     </div>
                     <div className="project-title">
@@ -40,7 +40,7 @@ function ProductCategoryCarousel() {
                 </div>
                 <div className="project-item mx-auto pe-5 pb-5 col-md-2" onClick={ () => renderCategory("DAILY_ESSENTIALS")} value="DAILY_ESSENTIALS">
                     <div className="project-img mb-3">
-                        <img className="img-fluid rounded" src="..\..\images\grocery.jpg" alt=""/>
+                        <img className="img-fluid border rounded" src="..\..\images\categories\daily_essential.jpg" alt="" style={{height:'150px', width:'200px'}}/>
                         <a><i className="fa fa-link fa-3x text-primary"></i></a>
                     </div>
                     <div className="project-title">
@@ -49,7 +49,7 @@ function ProductCategoryCarousel() {
                 </div>
                 <div className="project-item mx-auto pe-5 pb-5 col-md-2" onClick={ () => renderCategory("ELECTRONICS")} value="ELECTRONICS">
                     <div className="project-img mb-3">
-                        <img className="img-fluid rounded" src="..\..\images\grocery.jpg" alt=""/>
+                        <img className="img-fluid border rounded" src="..\..\images\categories\electronics.jpg" alt="" style={{height:'150px', width:'200px'}}/>
                         <a><i className="fa fa-link fa-3x text-primary"></i></a>
                     </div>
                     <div className="project-title">
@@ -58,7 +58,7 @@ function ProductCategoryCarousel() {
                 </div>
                 <div className="project-item mx-auto pe-5 pb-5 col-md-2" onClick={ () => renderCategory("PERSONAL_CARE")} value="PERSONAL_CARE">
                     <div className="project-img mb-3">
-                        <img className="img-fluid rounded" src="..\..\images\grocery.jpg" alt=""/>
+                        <img className="img-fluid border rounded" src="..\..\images\categories\personal_care.jpg" alt="" style={{height:'150px', width:'200px'}}/>
                         <a><i className="fa fa-link fa-3x text-primary"></i></a>
                     </div>
                     <div className="project-title">
@@ -67,7 +67,7 @@ function ProductCategoryCarousel() {
                 </div>
                 <div className="project-item mx-auto pe-5 pb-5 col-md-2" onClick={ () => renderCategory("BED_BATH")} value="BED_BATH">
                     <div className="project-img mb-3">
-                        <img className="img-fluid rounded" src="..\..\images\grocery.jpg" alt=""/>
+                        <img className="img-fluid border rounded" src="..\..\images\categories\bed.png" alt="" style={{height:'150px', width:'200px'}}/>
                         <a><i className="fa fa-link fa-3x text-primary"></i></a>
                     </div>
                     <div className="project-title">
@@ -78,7 +78,7 @@ function ProductCategoryCarousel() {
                 <div className="row carousel-item">
                 <div className="project-item mx-auto pe-5 pb-5 col-md-2 " onClick={ () => renderCategory("HOME_APPLIANCES")} value="HOME_APPLIANCES">
                     <div className="project-img mb-3">
-                        <img className="img-fluid rounded" src="..\..\images\grocery.jpg" alt=""/>
+                        <img className="img-fluid border rounded" src="..\..\images\categories\home_appliances.jpg" alt="" style={{height:'150px', width:'200px'}}/>
                         <a><i className="fa fa-link fa-3x text-primary"></i></a>
                     </div>
                     <div className="project-title">
@@ -87,7 +87,7 @@ function ProductCategoryCarousel() {
                 </div>
                 <div className="project-item mx-auto pe-5 pb-5 col-md-2" onClick={ () => renderCategory("CROCKERY")} value="CROCKERY">
                     <div className="project-img mb-3">
-                        <img className="img-fluid rounded" src="..\..\images\grocery.jpg" alt=""/>
+                        <img className="img-fluid border rounded" src="..\..\images\categories\crockery.jpg" alt="" style={{height:'150px', width:'200px'}}/>
                         <a><i className="fa fa-link fa-3x text-primary"></i></a>
                     </div>
                     <div className="project-title">
@@ -96,7 +96,7 @@ function ProductCategoryCarousel() {
                 </div>
                 <div className="project-item mx-auto pe-5 pb-5 col-md-2 " onClick={ () => renderCategory("FOOTWEAR")} value="FOOTWEAR">
                     <div className="project-img mb-3">
-                        <img className="img-fluid rounded" src="..\..\images\grocery.jpg" alt=""/>
+                        <img className="img-fluid border rounded" src="..\..\images\categories\footwear.jpg" alt="" style={{height:'150px', width:'200px'}}/>
                         <a><i className="fa fa-link fa-3x text-primary"></i></a>
                     </div>
                     <div className="project-title">
@@ -105,7 +105,7 @@ function ProductCategoryCarousel() {
                 </div>
                 <div className="project-item mx-auto pe-5 pb-5 col-md-2" onClick={ () => renderCategory("LUGGAGE")} value="LUGGAGE">
                     <div className="project-img mb-3">
-                        <img className="img-fluid rounded" src="..\..\images\grocery.jpg" alt=""/>
+                        <img className="img-fluid border rounded" src="..\..\images\categories\luggage.jpg" alt="" style={{height:'150px', width:'200px'}}/>
                         <a><i className="fa fa-link fa-3x text-primary"></i></a>
                     </div>
                     <div className="project-title">
@@ -114,7 +114,7 @@ function ProductCategoryCarousel() {
                 </div>
                 <div className="project-item mx-auto pe-5 pb-5 col-md-2" onClick={ () => renderCategory("TOYS_GAMES")} value="TOYS_GAMES">
                     <div className="project-img mb-3">
-                        <img className="img-fluid rounded" src="..\..\images\grocery.jpg" alt=""/>
+                        <img className="img-fluid border rounded" src="..\..\images\categories\toys.jpg" alt="" style={{height:'150px', width:'200px'}}/>
                         <a><i className="fa fa-link fa-3x text-primary"></i></a>
                     </div>
                     <div className="project-title">
@@ -127,7 +127,7 @@ function ProductCategoryCarousel() {
                 <div className="row carousel-item">
                 <div className="project-item mx-auto pe-5 pb-5 col-md-2 " onClick={ () => renderCategory("KID_APPAREL")} value="KID_APPAREL">
                     <div className="project-img mb-3">
-                        <img className="img-fluid rounded" src="..\..\images\grocery.jpg" alt=""/>
+                        <img className="img-fluid border rounded" src="..\..\images\categories\kids.jpg" alt="" style={{height:'150px', width:'200px'}}/>
                         <a><i className="fa fa-link fa-3x text-primary"></i></a>
                     </div>
                     <div className="project-title">
@@ -136,7 +136,7 @@ function ProductCategoryCarousel() {
                 </div>
                 <div className="project-item mx-auto pe-5 pb-5 col-md-2" onClick={ () => renderCategory("WOMEN_APPAREL")} value="WOMEN_APPAREL">
                     <div className="project-img mb-3">
-                        <img className="img-fluid rounded" src="..\..\images\grocery.jpg" alt=""/>
+                        <img className="img-fluid border rounded" src="..\..\images\categories\women.jpg" alt="" style={{height:'150px', width:'200px'}}/>
                         <a href=""><i className="fa fa-link fa-3x text-primary"></i></a>
                     </div>
                     <div className="project-title">
@@ -145,7 +145,7 @@ function ProductCategoryCarousel() {
                 </div>
                 <div className="project-item mx-auto pe-5 pb-5 col-md-2 " onClick={ () => renderCategory("MEN_APPAREL")} value="MEN_APPAREL">
                     <div className="project-img mb-3">
-                        <img className="img-fluid rounded" src="..\..\images\grocery.jpg" alt=""/>
+                        <img className="img-fluid border rounded" src="..\..\images\categories\men.jpg" alt="" style={{height:'150px', width:'200px'}}/>
                         <a href=""><i className="fa fa-link fa-3x text-primary"></i></a>
                     </div>
                     <div className="project-title">
@@ -154,7 +154,7 @@ function ProductCategoryCarousel() {
                 </div>
                 <div className="project-item mx-auto pe-5 pb-5 col-md-2" onClick={ () => renderCategory("PLASTIC_CONTAINERS")} value="PLASTIC_CONTAINERS">
                     <div className="project-img mb-3">
-                        <img className="img-fluid rounded" src="..\..\images\grocery.jpg" alt=""/>
+                        <img className="img-fluid border rounded" src="..\..\images\categories\plastic.jpg" alt="" style={{height:'150px', width:'200px'}}/>
                         <a href=""><i className="fa fa-link fa-3x text-primary"></i></a>
                     </div>
                     <div className="project-title">
@@ -163,7 +163,7 @@ function ProductCategoryCarousel() {
                 </div>
                 <div className="project-item mx-auto pe-5 pb-5 col-md-2" onClick={ () => renderCategory("DAIRY_FROZEN")} value="DAIRY_FROZEN">
                     <div className="project-img mb-3">
-                        <img className="img-fluid rounded" src="..\..\images\grocery.jpg" alt=""/>
+                        <img className="img-fluid border rounded" src="..\..\images\categories\frozen.jpg" alt="" style={{height:'150px', width:'200px'}}/>
                         <a href=""><i className="fa fa-link fa-3x text-primary"></i></a>
                     </div>
                     <div className="project-title">

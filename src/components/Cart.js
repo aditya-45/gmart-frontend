@@ -14,13 +14,17 @@ const Cart = () => {
        if(!user){
         navigate('/home')
        }
-       if(cart.length ===0){
-        navigate('/retailer/home');
+       if(user.role === 'company'){
+        navigate('/login/retailer');
        }
+       if(!cart || cart.length ===0){
+        navigate('/retailer/'+user.id+'/home');
+       }
+
       }, []);
 
       const handlePlaceOrder = () => {
-        navigate('/retailer/checkout'); //add retailer id in this endpoint
+        navigate('/retailer/'+user.id+'/checkout'); //add retailer id in this endpoint
       }
 
     const calculatePrice = (price, discount) => {

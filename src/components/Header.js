@@ -75,10 +75,10 @@ function Header() {
               <a href="/home" className="nav-item nav-link">Home</a>
               <a href="/about" className="nav-item nav-link">About</a>
               {user === null ? <a href="/partnerus" className="nav-item nav-link">PartnerWithUs</a> : ''}
-              {user !== null && user.role === 'retailer' ? <a href="/retailer/productList" className="nav-item nav-link">Orders List</a> : ''}
-              {user !== null && user.role === 'retailer' ? <a href="/retailer/account" className="nav-item nav-link">My Account</a> : ''}
-              {user !== null && user.role === 'company' ? <a href="/company/account" className="nav-item nav-link">My Account</a> : ''}
-              {user !== null && user.role === 'retailer' ? <a href="/retailer/cart" className="nav-item nav-link">Cart <span id="cart-badge" className="badge rounded-pill bg-danger">{cart.length}</span></a> : ''}
+              {user !== null && user.role === 'retailer' ? <a href={`/retailer/${user.id}/productList`} className="nav-item nav-link">Orders List</a> : ''}
+              {user !== null && user.role === 'retailer' ? <a href={`/retailer/${user.id}/account`} className="nav-item nav-link">My Account</a> : ''}
+              {user !== null && user.role === 'company' ? <a href={`/company/${user.id}/account`} className="nav-item nav-link">My Account</a> : ''}
+              {user !== null && user.role === 'retailer' ? <a href={`/retailer/${user.id}/cart`} className="nav-item nav-link">Cart <span id="cart-badge" className="badge rounded-pill bg-danger">{cart.length}</span></a> : ''}
               {user === null ? <div className="nav-item dropdown">
                 <a href="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">Categories</a>
                 <div className="dropdown-menu border-light m-0">
