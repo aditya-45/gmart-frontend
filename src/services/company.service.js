@@ -41,6 +41,18 @@ class CompanyService {
       .then((response) => response.data);
   }
 
+  getDetails(id){
+    return axios.get(BASE_URL + '/company/' + id + '/myAccount');
+  }
+  
+  updateDetails(id, user){
+    return axios.put(BASE_URL + '/company/' + id + '/myAccount/edit', user);
+  }
+  
+  deleteDetails(id){
+    return axios.delete(BASE_URL + '/company/' + id + '/deleteAccount');
+  }
+
 }
 
 export default new CompanyService();

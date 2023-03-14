@@ -11,6 +11,10 @@ const HomeCardComponent = () => {
     const handleCompany = () => {
         navigate('/signup/company');
     }
+
+    const handleNearby = () => {
+        
+    };
     return (
 
         <div className="container">
@@ -31,7 +35,7 @@ const HomeCardComponent = () => {
                             
                         </div>
                     </div>
-                    <div className="card m-1 w-100 ">
+                    <div className="card m-1 w-100 " onClick={handleNearby}>
                         <img className="card-img-top" src="..\..\images\n2.jpg" alt="Card image cap"></img>
                         <div className="card-img-overlay">
                             <h5 className="card-title">Nearby Store</h5>

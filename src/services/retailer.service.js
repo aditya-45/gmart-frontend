@@ -38,6 +38,20 @@ class RetailerService {
   order(id, cart){
     return axios.post(BASE_URL + '/retailer/' + id + '/createAnOrder', cart);
   }
+  update(user){
+    return axios.put(BASE_URL + '/retailer/'+ user.id +'/myAccount/edit',user);
+}
+editAddress(address,id){
+  return axios.put(BASE_URL + '/retailer/'+id+'/address/'+address.id,address);
+}
+
+deleteAddress(addressId,id){
+  return axios.delete(BASE_URL + '/retailer/'+id+'/address/'+addressId);
+}
+
+deleteAccount(id){
+  return axios.delete(BASE_URL + '/retailer/'+id+'/');
+}
 }
 
 export default new RetailerService();

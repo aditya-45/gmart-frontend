@@ -326,7 +326,7 @@ const Checkout = () => {
                                                         </div>
                                                         <div className="modal-footer">
                                                             <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Close</button>
-                                                            <button type="submit" className="btn btn-primary">Add Product</button>
+                                                            <button type="submit" className="btn btn-primary">Add Address</button>
                                                         </div>
                                                     </form>
                                                 </div>

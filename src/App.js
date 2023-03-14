@@ -21,7 +21,8 @@ import { UserProvider,CartProvider } from './components/UserContext';
 import RetailerOrderedProductList from './components/RetailerOrderedProductList';
 import Checkout from './components/Checkout';
 import PartnerWithUs from './components/PartnerWithUs';
-
+import RetailerMyAccount from './components/RetailerMyAccount';
+import CompanyMyAccount from './components/CompanyMyAccount';
 
 function App() {
 
@@ -46,6 +47,7 @@ function App() {
                   <Route path="/about" element={<AboutUs/>}/>
                   <Route path="/partnerus" element={<PartnerWithUs/>}/>
 
+                  <Route path="/company/:companyId/myAccount" element={<CompanyMyAccount/>}/>
                   <Route path="/retailer/:retailerId/productList" element={<RetailerOrderedProductList/>}/>
                   {/* add retailer id in this endpoint */}
 
@@ -53,7 +55,7 @@ function App() {
                   <Route path="/company/:companyId/home" element={<CompanyHomePage/>}/>
 
                   <Route path="/category/:categoryName" element={<ProductsByCategory/>}/>
-
+                  <Route path="/retailer/:retailerId/myaccount" element={<RetailerMyAccount/>}/>
                   <Route path="/retailer/category/:categoryName" element={<ProductsByCategory/>}/>
                   {/* add retailer id in this endpoint */}
 
