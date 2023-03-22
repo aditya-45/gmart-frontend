@@ -65,68 +65,9 @@ const RetailerSignUp = () => {
       
       
 
-    //const currentUser = useSelector(state => state.user);
-
     const navigate = useNavigate();
 
-    // //mounted
-    // useEffect(() => {
-    //     if (currentUser?.id) {
-    //         //navigate
-    //         navigate('/profile');
-    //     }
-    // }, []);
-
-    //<input name="x" value="y" onChange=(event) => handleChange(event)>
-
-    // function handleUsernameChange(event) {
-    //     setUsername(event.target.value);
-    // }
-    // function handleFullnameChange(event) {
-    //     setFullName(event.target.value);
-
-    // }
-    // function handlePasswordChange(event) {
-    //     setPassword(event.target.value);
-
-    // }
-    // function handleContactNoChange(event) {
-    //     setContactNumber(event.target.value);
-
-    // }
-    // function handleEmailChange(event) {
-    //     setEmail(event.target.value);
-    // }
-    // function handleAltContactChange(event) {
-    //     setAlternateMobNumber(event.target.value);
-    // }
-    // function handleAddressChange(newAddress) {
-    //     setRAddress(newAddress);
-    //     setUser(new User(username, password, fullName,  contactNumber, email, alternateMobNumber, rAddress));
-
-    // }
-
-    // const handleChange = (e) => {
-    //   const {name, value} = e.target;
-
-    //   setRAddress((prevState => {
-    //     //e.g: prevState ({user: x, pass: x}) + newKeyValue ({user: xy}) => ({user: xy, pass: x})
-    //     return {
-    //         ...prevState,
-    //         [name]: value
-    //     };
-    // }));
-
-
-    //   setUser((prevState => {
-    //       //e.g: prevState ({user: x, pass: x}) + newKeyValue ({user: xy}) => ({user: xy, pass: x})
-    //       return {
-    //           ...prevState,
-    //           [name]: value
-    //       };
-    //   }));
-    // };
-
+    
     const handleRegister = (e) => {
 
         e.preventDefault();
@@ -145,6 +86,7 @@ const RetailerSignUp = () => {
             formData.rAddress
           );
           
+         
 
         console.log(newUser);
         if (!newUser.fullName || !newUser.username || !newUser.password || !newUser.email || !newUser.contactNumber) {
@@ -161,7 +103,7 @@ const RetailerSignUp = () => {
         }).catch(error => {
             console.log(error);
             if (error?.response?.status === 409) {
-                setErrorMessage('Email already exists!!!');
+                setErrorMessage('Username already exists!!!');
             } else {
                 setErrorMessage('Unexpected error occurred!!');
             }
@@ -200,11 +142,13 @@ const RetailerSignUp = () => {
                                                 placeholder="Enter Full Name"
                                                 value={formData.fullName}
                                                 onChange={handleInputChange}
+                                                minLength="4"
+                                                maxLength="20"
                                                 required
                                             />
                                             <label htmlFor="fullName">Full Name:</label>
                                             <div className="invalid-feedback">
-                                                Name is required.
+                                                Name is required and should be between 4 and 20 characters.
                                             </div>
                                         </div>
                                     </div>
@@ -222,11 +166,14 @@ const RetailerSignUp = () => {
                                                 placeholder="Enter Username"
                                                 value={formData.username}
                                                 onChange={handleInputChange}
+                                                minLength="6"
+                                                maxLength="40"
+                                                pattern="^[a-zA-Z][-a-zA-Z0-9_]*$"
                                                 required
                                             />
                                             <label htmlFor="username">Username:</label>
                                             <div className="invalid-feedback">
-                                                User name is required.
+                                                User name is required, length should be between 6 and 40 characters and should contain only alphabets,numbers, (-/_) and first charater should be alphabet.
                                             </div>
                                         </div>
                                     </div>
@@ -243,11 +190,13 @@ const RetailerSignUp = () => {
                                                 placeholder="Enter Password"
                                                 value={formData.password}
                                                 onChange={handleInputChange}
+                                                maxLength="100"
+                                                pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
                                                 required
                                             />
                                             <label htmlFor="password">Password:</label>
                                             <div className="invalid-feedback">
-                                                Password is required.
+                                                Password is required, maxLength 100, must be at least 8 characters long, must contain at least one letter (uppercase or lowercase), one digit and can contain the following special characters: @$!%*#?& 
                                             </div>
                                         </div>
                                     </div>
@@ -263,6 +212,7 @@ const RetailerSignUp = () => {
                                                 placeholder="Enter Email"
                                                 value={formData.email}
                                                 onChange={handleInputChange}
+                                                maxLength="40"
                                                 required
                                             />
                                             <label htmlFor="email">Email:</label>
@@ -284,11 +234,14 @@ const RetailerSignUp = () => {
                                                 placeholder="Enter Contact Number"
                                                 value={formData.contactNumber}
                                                 onChange={handleInputChange}
+                                                minLength="10"
+                                                maxLength="10"
+                                                pattern="[1-9]\d{9}"
                                                 required
                                             />
                                             <label htmlFor="contactNumber">Contact Number:</label>
                                             <div className="invalid-feedback">
-                                                Contact Number is required.
+                                                Contact Number is required should contain 10 digits only
                                             </div>
                                         </div>
                                     </div>
@@ -303,9 +256,13 @@ const RetailerSignUp = () => {
                                                 placeholder="Enter Alternate Contact Number"
                                                 value={formData.alternateMobNumber}
                                                 onChange={handleInputChange}
-                                                required
+                                               
+                                                
                                             />
                                             <label htmlFor="alternateMobNumber">Alternate Contact Number:</label>
+                                            <div className="invalid-feedback">
+                                                Alternate Contact Number is required should contain 10 digits only
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -325,9 +282,13 @@ const RetailerSignUp = () => {
                                                     placeholder="Enter Shop Number"
                                                     value={formData.rAddress.shopNo}
                                                     onChange={handleAddressChange}
+                                                    maxLength="50"
                                                     required
                                                 />
                                                  <label htmlFor="shopNo">Shop No:</label>
+                                                 <div className="invalid-feedback">
+                                                Shop No is required.
+                                            </div>
                                             </div>
                                         </div>
 
@@ -341,9 +302,13 @@ const RetailerSignUp = () => {
                                                     placeholder="Enter Street Name"
                                                     value={formData.rAddress.streetName}
                                                     onChange={handleAddressChange}
+                                                    maxLength="50"
                                                     required
                                                 />
                                                  <label htmlFor="streetName">Street Name:</label>
+                                                 <div className="invalid-feedback">
+                                                Street Name is required.
+                                            </div>
                                             </div>
                                         </div>
                                     </div>
@@ -359,9 +324,13 @@ const RetailerSignUp = () => {
                                                     placeholder="Enter Locality"
                                                     value={formData.rAddress.locality}
                                                     onChange={handleAddressChange}
+                                                    maxLength="50"
                                                     required
                                                 />
                                                  <label htmlFor="locality">Locality:</label>
+                                                 <div className="invalid-feedback">
+                                                Locality is required.
+                                            </div>
                                             </div>
                                         </div>
 
@@ -375,9 +344,13 @@ const RetailerSignUp = () => {
                                                     placeholder="Enter City"
                                                     value={formData.rAddress.city}
                                                     onChange={handleAddressChange}
+                                                    maxLength="50"
                                                     required
                                                 />
                                                  <label htmlFor="city">City:</label>
+                                                 <div className="invalid-feedback">
+                                                City is required.
+                                            </div>
                                             </div>
                                         </div>
                                     </div>
@@ -393,9 +366,13 @@ const RetailerSignUp = () => {
                                                     placeholder="Enter State"
                                                     value={formData.rAddress.state}
                                                     onChange={handleAddressChange}
+                                                    maxLength="50"
                                                     required
                                                 />
                                                  <label htmlFor="state">State:</label>
+                                                 <div className="invalid-feedback">
+                                                State is required.
+                                            </div>
                                             </div>
                                         </div>
 
@@ -409,9 +386,15 @@ const RetailerSignUp = () => {
                                                     placeholder="Enter Pincode"
                                                     value={formData.rAddress.pincode}
                                                     onChange={handleAddressChange}
+                                                    minLength="6"
+                                                    maxLength="6"
+                                                    pattern="^[1-9][0-9]{5}$"
                                                     required
                                                 />
                                                  <label htmlFor="pincode">Pincode:</label>
+                                                 <div className="invalid-feedback">
+                                                Pincode is required and should be of 6 digits
+                                            </div>
                                             </div>
                                         </div>
 

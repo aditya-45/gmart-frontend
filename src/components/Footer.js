@@ -18,8 +18,8 @@ const Footer = () => {
                             <h4 className="text-white mb-4">Quick Links</h4>
                             <a className="btn btn-link" href="/about">About Us</a>
                             <a className="btn btn-link" href="/home">Home</a>
-                            <a className="btn btn-link" href="/company/signup">Partner With Us</a>
-                            <a className="btn btn-link" href="/feedback">Feedback</a>
+                            <a className="btn btn-link" href="/partnerus">Partner With Us</a>
+                            
                         </div>
                        
                     </div>

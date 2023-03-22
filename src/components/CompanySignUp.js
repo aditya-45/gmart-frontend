@@ -112,7 +112,7 @@ const CompanySignUp = () => {
         }).catch(error => {
             console.log(error);
             if (error?.response?.status === 409) {
-                setErrorMessage('Email already exists!!!');
+                setErrorMessage('Username or Company Name already exists!!!');
             } else {
                 setErrorMessage('Unexpected error occurred!!');
             }
@@ -151,6 +151,7 @@ const CompanySignUp = () => {
                                                 placeholder="Enter Company Name"
                                                 value={companyName}
                                                 onChange={handleCompanyNameChange}
+                                                maxLength="40"
                                                 required
                                             />
                                             <label htmlFor="companyName">Company Name:</label>
@@ -173,11 +174,14 @@ const CompanySignUp = () => {
                                                 placeholder="Enter Username"
                                                 value={username}
                                                 onChange={handleUsernameChange}
+                                                minLength="6"
+                                                maxLength="40"
+                                                pattern="^[a-zA-Z][-a-zA-Z0-9_]*$"
                                                 required
                                             />
                                             <label htmlFor="username">Username:</label>
                                             <div className="invalid-feedback">
-                                                User name is required.
+                                            User name is required, length should be between 6 and 40 characters and should contain only alphabets,numbers, (-/_) and first charater should be alphabet.
                                             </div>
                                         </div>
                                     </div>
@@ -194,11 +198,13 @@ const CompanySignUp = () => {
                                                 placeholder="Enter Password"
                                                 value={password}
                                                 onChange={handlePasswordChange}
+                                                maxLength="100"
+                                                pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
                                                 required
                                             />
                                             <label htmlFor="password">Password:</label>
                                             <div className="invalid-feedback">
-                                                Password is required.
+                                                Password is required, maxLength 100, must be at least 8 characters long, must contain at least one letter (uppercase or lowercase), one digit and can contain the following special characters: @$!%*#?& 
                                             </div>
                                         </div>
                                     </div>
@@ -214,6 +220,7 @@ const CompanySignUp = () => {
                                                 placeholder="Enter Email"
                                                 value={email}
                                                 onChange={handleEmailChange}
+                                                maxLength="40"
                                                 required
                                             />
                                             <label htmlFor="email">Email:</label>
@@ -235,11 +242,14 @@ const CompanySignUp = () => {
                                                 placeholder="Enter Contact Number"
                                                 value={contactNumber}
                                                 onChange={handleContactNoChange}
+                                                minLength="10"
+                                                maxLength="10"
+                                                pattern="[1-9]\d{9}"
                                                 required
                                             />
                                             <label htmlFor="contactNumber">Contact Number:</label>
                                             <div className="invalid-feedback">
-                                                Contact Number is required.
+                                            Contact Number is required should contain 10 digits only
                                             </div>
                                         </div>
                                     </div>
@@ -254,7 +264,8 @@ const CompanySignUp = () => {
                                                 placeholder="Enter Alternate Contact Number"
                                                 value={alternateMobNumber}
                                                 onChange={handleAltContactChange}
-                                                required
+                                               
+                                                
                                             />
                                             <label htmlFor="alternateMobNumber">Alternate Contact Number:</label>
                                         </div>
@@ -277,8 +288,12 @@ const CompanySignUp = () => {
                                                     value={address.streetName}
                                                     onChange={(event) => handleAddressChange({ ...address, streetName: event.target.value })}
                                                     required
+                                                    maxLength="50"
                                                 />
                                                 <label htmlFor="streetName">Street Name:</label>
+                                                <div className="invalid-feedback">
+                                                Street Name is required.
+                                            </div>
                                             </div>
                                         </div>
 
@@ -293,8 +308,12 @@ const CompanySignUp = () => {
                                                     value={address.locality}
                                                     onChange={(event) => handleAddressChange({ ...address, locality: event.target.value })}
                                                     required
+                                                    maxLength="50"
                                                 />
                                                 <label htmlFor="locality">Locality:</label>
+                                                <div className="invalid-feedback">
+                                                Locality is required.
+                                            </div>
                                             </div>
                                         </div>
 
@@ -314,8 +333,12 @@ const CompanySignUp = () => {
                                                     value={address.city}
                                                     onChange={(event) => handleAddressChange({ ...address, city: event.target.value })}
                                                     required
+                                                    maxLength="50"
                                                 />
                                                 <label htmlFor="city">City:</label>
+                                                <div className="invalid-feedback">
+                                                City is required.
+                                            </div>
                                             </div>
                                         </div>
 
@@ -330,8 +353,12 @@ const CompanySignUp = () => {
                                                     value={address.state}
                                                     onChange={(event) => handleAddressChange({ ...address, state: event.target.value })}
                                                     required
+                                                    maxLength="50"
                                                 />
                                                 <label htmlFor="state">State:</label>
+                                                <div className="invalid-feedback">
+                                                State is required.
+                                            </div>
                                             </div>
                                         </div>
 
@@ -352,8 +379,14 @@ const CompanySignUp = () => {
                                                     value={address.pincode}
                                                     onChange={(event) => handleAddressChange({ ...address, pincode: event.target.value })}
                                                     required
+                                                    minLength="6"
+                                                    maxLength="6"
+                                                    pattern="^[1-9][0-9]{5}$"
                                                 />
                                                 <label htmlFor="pincode">Pincode:</label>
+                                                <div className="invalid-feedback">
+                                                Pincode is required and should be of 6 digits
+                                            </div>
                                             </div>
                                         </div>
 

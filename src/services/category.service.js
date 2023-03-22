@@ -10,6 +10,10 @@ class CategoryService {
     return axios.get(BASE_URL + '/category/'+ categoryName);
   }
 
+  getNearby(pincode){
+    return axios.get(BASE_URL + '/retailStore/'+ pincode);
+  }
+
   // getProductImage(id) {
   //   return axios.get(`${BASE_URL}/${id}/image`, {
   //     responseType: 'blob',

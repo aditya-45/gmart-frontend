@@ -9,6 +9,7 @@ const Cart = () => {
     const { user, setUser } = useContext(UserContext);
     const { cart, setCart } = useContext(CartContext);
 
+    const BASE_URL="http://localhost:9090/";
 
     useEffect(() => {
        if(!user){
@@ -101,7 +102,7 @@ const Cart = () => {
                                 <div key={cartItem.product.id} className="card">
                                     <div className="row">
                                         <div className="col-md-4">
-                                            <img src="..\..\images\grocery.jpg" className="img-fluid h-100 rounded-start" alt="Product Image" />
+                                            <img src={BASE_URL +cartItem.product.id +'/image'} className="img-fluid h-100 rounded-start" alt="Product Image" style={{height:'100px',width:'150px'}} />
                                         </div>
                                         <div className="card-body col-md-7">
                                             <h5 className="card-title">{cartItem.product.productName}</h5>
